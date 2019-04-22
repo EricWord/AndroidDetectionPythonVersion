@@ -4,7 +4,8 @@ import os.path
 import sys
 import subprocess
 import time
-from AndroidDetection import getFeatures
+
+from featureProject import getFeatures
 
 rootdir = "E:/7BiShe/badAPKs/3901-4200/3901-4200doing/"
 destdir = "D:/cgs/File/data/0test0412/otherGoodApksRes/"
