@@ -14,7 +14,6 @@ from sklearn.externals import joblib
 import time
 # 控制台调用Java程序传递参数用到
 import sys
-# path="D:/cgs/File/CSV/20190416/androidDetection_2019_04_16_14_10_17.csv"
 
 def logic(path):
     # 设置显示的最大列、宽等参数，消掉打印不完全中间的省略号

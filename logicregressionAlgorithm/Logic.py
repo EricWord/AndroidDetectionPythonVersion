@@ -3,7 +3,7 @@ import numpy as np
 # 划分数据集用到的
 from sklearn .model_selection  import train_test_split
 # 特征工程用到的
-from sklearn.preprocessing import  StandardScaler
+from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 # 逻辑回归用到的
 from sklearn.linear_model import LogisticRegression
 # 查看精确率和召回率用到的
@@ -49,9 +49,13 @@ x_train=transfer.fit_transform(x_train)
 x_test=transfer.transform(x_test)
 # print(x_train)
 
+# 定义多项式回归，degree的值可以调节多项式的特征
+poly__reg=PolynomialFeatures(degree=5)
+# 特征处理
+
 # 实例化 LogisticRegression
-# estimator = LogisticRegression()
-# estimator.fit(x_train,y_train)
+estimator = LogisticRegression()
+estimator.fit(x_train,y_train)
 # 逻辑回归的模型参数：回归系数和偏置
 # print(estimator.coef_)
 # print(estimator.intercept_)
@@ -60,7 +64,7 @@ x_test=transfer.transform(x_test)
 currentTime=time.strftime('%Y_%m_%d %H_%M_%S',time.localtime(time.time()))
 # oblib.dump(estimator,"ridge_"+currentTime+".pkl")
 # 加载模型
-estimator=joblib.load("ridge_2019_04_16 15_04_05.pkl")
+# estimator=joblib.load("ridge_2019_04_16 15_04_05.pkl")
 
 # 模型品评估
 y_predict=estimator.predict(x_test)
