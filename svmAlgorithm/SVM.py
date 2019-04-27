@@ -13,5 +13,11 @@ cluster_std:簇的离散程度,数值越大，说明数据越分散
 
 '''
 X,y=make_blobs(n_samples=50,centers=2,random_state=0,cluster_std=0.40)
+print(y)
 plt.scatter(X[:,0],X[:,1],c=y,s=50,cmap='autumn')
 plt.show()
+
+from sklearn.svm import SVC
+model=SVC(kernel='linear')
+model.fit(X,y)
+

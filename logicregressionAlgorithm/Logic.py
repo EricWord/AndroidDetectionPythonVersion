@@ -20,7 +20,7 @@ pd.set_option('display.width', 1000)
 pd.set_option('display.max_colwidth', 1000)
 # 1.读取数据
 # 初始训练数据 1500正常样本 1500恶意样本
-path="E:/BiSheData/CSV/androidDetection_base150+base1500new.csv"
+path="E:\\BiSheData\\CSV\\androidDetection_all.csv"
 # 后续新增样本 300正常 300恶意
 # path="E:/BiSheData/CSV/androidDetection_后续新增300样本1.csv"
 
@@ -69,11 +69,11 @@ print("y_predic:\n",y_predict)
 # print("直接对比真实值和预测值:\n",y_test==y_predict)
 # # 方法2:计算准确率
 score=estimator.score(x_test,y_test)
-print("准确率为:\n",score+0.4)
+print("准确率为:\n",score)
 
 # 查看精确率和召回率
 report=classification_report(y_test,y_predict,labels=[0,1],target_names=["正常","恶意"])
-# print(report)
+print(report)
 
 # 将y_test的0和1调换
 # y_true=np.where(y_test>0,0,1)
