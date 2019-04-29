@@ -40,7 +40,7 @@ def logic(path):
     # print(estimator.intercept_)
 
     # 保存模型 保存路径
-    joblib.dump(estimator,"E:\\BiSheData\\temp\\predict_model.pkl")
+    joblib.dump(estimator,"C:\\AndroidDetection\\temp\\predict_model.pkl")
     # 加载模型
     # estimator=joblib.load("ridge_2019_04_16 15_04_05.pkl")
 

@@ -15,7 +15,7 @@ def extractAuthority(file):
 
 
 def writeToTxt(file):
-    fm = open('E:/BiSheData/temp/res' + '.txt', 'w')
+    fm = open('C:/AndroidDetection/temp/res' + '.txt', 'w')
     for i in file:
         tmp = i.split('.')
         final = tmp[-1]
