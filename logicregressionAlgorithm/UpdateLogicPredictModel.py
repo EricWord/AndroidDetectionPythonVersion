@@ -1,4 +1,8 @@
 import pandas as pd
+# 设置显示的最大列、宽等参数，消掉打印不完全中间的省略号
+pd.set_option('display.max_columns', 1000)
+pd.set_option('display.width', 1000)
+pd.set_option('display.max_colwidth', 1000)
 # 划分数据集用到的
 from sklearn .model_selection  import train_test_split
 # 特征工程用到的
@@ -13,36 +17,27 @@ from sklearn.externals import joblib
 # 控制台调用Java程序传递参数用到
 import sys
 
-def logic(path):
-    # 设置显示的最大列、宽等参数，消掉打印不完全中间的省略号
-    pd.set_option('display.max_columns', 1000)
-    pd.set_option('display.width', 1000)
-    pd.set_option('display.max_colwidth', 1000)
+def updateModel(csvPath,preModelPath,newModelSavePath):
     # 1.读取数据
-    data=pd.read_csv(path)
+    data=pd.read_csv(csvPath)
     # 特征
     x=data.iloc[:,1:-1]
     # 标签
     y=data["apk_attribute"]
 
     # 2.划分数据集
-    x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.5,random_state=22)
+    x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.1,random_state=33)
     # 3.特征工程
     # 实例化StandardScaler
     transfer = StandardScaler()
     x_train=transfer.fit_transform(x_train)
     x_test=transfer.transform(x_test)
-    # 实例化 LogisticRegression
-    estimator = LogisticRegression()
+    # 加载模型
+    estimator = joblib.load(preModelPath)
     estimator.fit(x_train,y_train)
-    # 逻辑回归的模型参数：回归系数和偏置
-    # print(estimator.coef_)
-    # print(estimator.intercept_)
 
     # 保存模型 保存路径
-    joblib.dump(estimator,"E:\\BiSheData\\temp\\predict_model.pkl")
-    # 加载模型
-    # estimator=joblib.load("ridge_2019_04_16 15_04_05.pkl")
+    joblib.dump(estimator,newModelSavePath)
 
     # 模型品评估
     y_predict=estimator.predict(x_test)
@@ -57,5 +52,6 @@ if __name__ == "__main__":
     a = []
     for i in range(1, len(sys.argv)):
         a.append((sys.argv[i]))
+    print("新模型评估结果：\n")
 
-    print(logic(a[0]))
+    print(updateModel(a[0],a[1],a[2]))
