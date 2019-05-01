@@ -32,4 +32,11 @@ def predict(csvPath,modelPath):
     return res
 
 if __name__ == "__main__":
-    print(predict("E:\\BiSheData\\CSV\\test.csv","E:\\BiSheData\\temp\\predict_model.pkl"))
+    # print(predict("E:\\BiSheData\\CSV\\test.csv","E:\\BiSheData\\temp\\predict_model.pkl"))
+    a = []
+    for i in range(1, len(sys.argv)):
+        a.append((sys.argv[i]))
+
+    print(predict(a[0],a[1]))
+
+
