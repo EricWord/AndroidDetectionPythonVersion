@@ -14,8 +14,9 @@ def extractAuthority(file):
     return  authorities
 
 
-def writeToTxt(file):
-    fm = open('E:/BiSheData/temp/res' + '.txt', 'w')
+def writeToTxt(file,savePath):
+    # 'E:/BiSheData/temp/res.txt'
+    fm = open(savePath, 'w')
     for i in file:
         tmp = i.split('.')
         final = tmp[-1]
@@ -23,12 +24,12 @@ def writeToTxt(file):
         fm.write("\n")
     fm.close()
 
-def get_permissions(src):
+def get_permissions(src,savePath):
     app = apk.APK(src)
     permission = app.get_permissions()
     file = permission
     perms=extractAuthority(file)
-    writeToTxt(file)
+    writeToTxt(file,savePath)
     return perms
 
 
@@ -40,4 +41,4 @@ if __name__ == '__main__':
     for i in range(1, len(sys.argv)):
         a.append((sys.argv[i]))
 
-    print(get_permissions(a[0]))
+    print(get_permissions(a[0],a[1]))
