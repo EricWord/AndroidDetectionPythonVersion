@@ -32,9 +32,11 @@ def predict(csvPath,modelPath):
     return res
 
 if __name__ == "__main__":
-    # print(predict("E:\\BiSheData\\CSV\\test.csv","E:\\BiSheData\\temp\\predict_model.pkl"))
+    # print(predict("C:\\AndroidDetection\\temp\\srcApkFeature.csv","C:\\AndroidDetection\\temp\\predict_model.pkl"))
     # print(predict("E:\\BiSheData\\CSV\\test.csv","E:\\BiSheData\\temp\\predict_model.pkl"))
     a = []
     for i in range(0, len(sys.argv)):
         a.append((sys.argv[i]))
-    print(predict(a[0], a[1]))
+
+    print("第一个参数为:"+a[0], ",第二个参数为:"+a[1])
+    # print(predict(a[0], a[1]))
