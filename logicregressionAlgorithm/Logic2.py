@@ -24,29 +24,37 @@ pd.set_option('display.width', 1000)
 pd.set_option('display.max_colwidth', 1000)
 # 1.读取数据
 # 初始训练数据 1500正常样本 1500恶意样本
-path="E:\\7BiShe\\dataset\\method2\\androidDetection_part_1000good_1000bad.csv"
+path2="E:\\7BiShe\\dataset\\method1\\androidDetection_part_2500good_2500bad.csv"
+path="E:\\7BiShe\\dataset\\method2\\androidDetection_part_150good_150bad_base_100.csv"
 # 后续新增样本 300正常 300恶意
 # path="E:/BiSheData/CSV/androidDetection_后续新增300样本1.csv"
 
 data=pd.read_csv(path)
+data2=pd.read_csv(path2)
 
 # 2.缺失值处理
 
 # 筛选特征值和目标值   也就是说给定的数据并不都是特征值 比如id之类的就不是特征值
 x=data.iloc[:,1:-1]
+x2=data2.iloc[:,1:-1]
 # print(x)
 y=data["apk_attribute"]
+y2=data2["apk_attribute"]
 # print(y)
 
 # 3.划分数据集
-x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.25,random_state=22)
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.95,random_state=22)
+x2_train,x2_test,y2_train,y2_test=train_test_split(x2,y2,test_size=0.95,random_state=22)
 # print(x_train)
 
 # 4.特征工程
 # 实例化StandardScaler
 transfer = StandardScaler()
+transfer2 = StandardScaler()
 x_train=transfer.fit_transform(x_train)
+x2_train=transfer.fit_transform(x2_train)
 x_test=transfer.transform(x_test)
+x2_test=transfer.transform(x2_test)
 # print(x_train)
 
 # 定义多项式回归，degree的值可以调节多项式的特征
@@ -55,13 +63,20 @@ x_test=transfer.transform(x_test)
 
 # 实例化 LogisticRegression
 estimator = LogisticRegression()
+estimator2 = LogisticRegression()
 estimator.fit(x_train,y_train)
+estimator2.fit(x2_train,y2_train)
 probs =estimator.predict_proba(x_test)
+probs2 =estimator2.predict_proba(x2_test)
 preds = probs[:,1]
+preds2 = probs2[:,1]
 fpr, tpr, threshold = metrics.roc_curve(y_test, preds)
+fpr2, tpr2, threshold2 = metrics.roc_curve(y2_test, preds2)
 roc_auc = metrics.auc(fpr, tpr)
+roc_auc2 = metrics.auc(fpr2, tpr2)
 plt.title('Receiver Operating Characteristic')
-plt.plot(fpr, tpr, 'b', label = 'AUC = %0.2f' % roc_auc)
+plt.plot(fpr, tpr, 'b', label = 'Model A1 and Model B1(AUC = %0.5f)' % roc_auc)
+plt.plot(fpr2, tpr2, 'r', label = 'Model B2(AUC = %0.5f)' % roc_auc2)
 plt.legend(loc = 'lower right')
 plt.plot([0, 1], [0, 1],'r--')
 plt.xlim([0, 1])
